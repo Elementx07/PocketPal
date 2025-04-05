@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   syncfusion_flutter_charts: ^29.1.35
+  sliding_up_panel: ^2.0.0+1
 
 
   english_words: ^4.0.0
