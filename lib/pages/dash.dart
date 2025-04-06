@@ -64,18 +64,13 @@ class _DashBoardPageState extends State<DashBoardPage> {
                 });
               }
             },
-            child: ClipRect(
-              child: SizeTransition(
-                sizeFactor: AlwaysStoppedAnimation(_isProfileVisible ? 1.0 : 0.0),
-                child: ProfileSection(
-                  isProfileVisible: _isProfileVisible,
-                  onVisibilityChanged: (visible) {
-                    setState(() {
-                      _isProfileVisible = visible;
-                    });
-                  },
-                ),
-              ),
+            child: ProfileSection(
+              isProfileVisible: _isProfileVisible,
+              onVisibilityChanged: (visible) {
+                setState(() {
+                  _isProfileVisible = visible;
+                });
+              },
             ),
           ),
           if (!_isProfileVisible)
