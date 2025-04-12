@@ -6,7 +6,7 @@ import 'package:pocket_pal/widgets/radial_chart.dart';
 import 'package:rive/rive.dart';
 
 class DashBoardPage extends StatefulWidget {
-  const DashBoardPage({Key? key}) : super(key: key);
+  const DashBoardPage({super.key});
 
   @override
   State<DashBoardPage> createState() => _DashBoardPageState();
@@ -16,12 +16,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   int _selectedIndex = 0;
   bool _isProfileVisible = true;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Search Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Profile Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Settings Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-  ];
+  
 
   void _onItemTapped(int index) {
     setState(() {
