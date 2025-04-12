@@ -27,10 +27,10 @@ dev_dependencies:
 flutter:
   assets:
     - assets/123.jpg
+    - assets/animations/cosmos.riv
   uses-material-design: true
   fonts:
     - family: Arcade
       fonts:
         - asset: fonts/ARCADECLASSIC.TTF
-  assets:
-    - assets/animations/cosmos.riv
+    

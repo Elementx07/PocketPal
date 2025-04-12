@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pocket_pal/widgets/bottom_navigation_bar.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/profile_section.dart';
-<<<<<<< HEAD
-import 'package:pocket_pal/widgets/radial_chart.dart';
-import 'package:rive/rive.dart';
-=======
 import 'package:pocket_pal/widgets/pi_chart.dart';
->>>>>>> 6daba8125d6946b50523811e219e6703666d7260
+import 'package:rive/rive.dart';
 
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({super.key});
@@ -20,11 +16,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
   int _selectedIndex = 0;
   bool _isProfileVisible = true;
 
-<<<<<<< HEAD
-  
-
-=======
->>>>>>> 6daba8125d6946b50523811e219e6703666d7260
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
