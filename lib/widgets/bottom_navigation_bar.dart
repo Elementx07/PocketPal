@@ -25,13 +25,13 @@ class PocketPalBottomNavigationBar extends StatelessWidget {
           backgroundColor: Color.fromARGB(255, 49, 2, 65),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
+          icon: Icon(Icons.subscriptions),
+          label: 'Subscriptons',
           backgroundColor: Color.fromARGB(255, 49, 2, 65),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Settings',
+          icon: Icon(Icons.gamepad),
+          label: 'Game Mode',
           backgroundColor: Color.fromARGB(255, 49, 2, 65),
         ),
       ],

@@ -14,12 +14,9 @@ class ProfileSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onVerticalDragUpdate: (details) {
-        // Swipe down
         if (details.delta.dy > 5 && !isProfileVisible) {
           onVisibilityChanged(true);
-        }
-        // Swipe up
-        else if (details.delta.dy < -5 && isProfileVisible) {
+        } else if (details.delta.dy < -5 && isProfileVisible) {
           onVisibilityChanged(false);
         }
       },
@@ -33,7 +30,7 @@ class ProfileSection extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Color.fromARGB(255, 8, 60, 58),
+              color: Colors.black,
               spreadRadius: 0,
               blurRadius: 10,
               offset: Offset(0, 5),
@@ -63,25 +60,13 @@ class ProfileSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              const Text(
-                "🔥",
-                style: TextStyle(
-                  fontSize: 50,
-                  shadows: [
-                    Shadow(
-                      blurRadius: 50.0,
-                      color: Color.fromARGB(255, 255, 187, 0),
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-              ),
+              Image.asset('assets/123.jpg', height: 75, width: 70),
               const SizedBox(height: 10),
               const Text(
-                "Streak: 9000",
+                "🔥36",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
