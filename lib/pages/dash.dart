@@ -70,7 +70,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                     children: [
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.03),
-                      HorizontalCards(),
+                      const HorizontalCards(isSubscriptionPage: false),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.03),
                       PieChartWidget(data: getPieChartData()),
