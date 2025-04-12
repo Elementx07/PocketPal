@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_pal/pages/subscription_page.dart';
 
 class PocketPalBottomNavigationBar extends StatelessWidget {
   const PocketPalBottomNavigationBar({
@@ -37,7 +38,16 @@ class PocketPalBottomNavigationBar extends StatelessWidget {
       ],
       currentIndex: selectedIndex,
       selectedItemColor: Colors.white,
-      onTap: (index) => onItemTapped(index),
+      onTap: (index) {
+        if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SubscriptionPage()),
+          );
+        } else {
+          onItemTapped(index);
+        }
+      },
     );
   }
 }
