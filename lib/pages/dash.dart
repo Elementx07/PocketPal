@@ -5,6 +5,7 @@ import 'package:pocket_pal/widgets/profile_section.dart';
 import 'package:pocket_pal/widgets/pi_chart.dart';
 import 'package:rive/rive.dart';
 
+
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({super.key});
 
@@ -39,6 +40,24 @@ class _DashBoardPageState extends State<DashBoardPage> {
           ),
           _buildBody(context),
         ],
+      ),
+      floatingActionButton: Transform.scale(
+        scale: 1.2,
+        child: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: Colors.grey[900],
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+              ),
+              builder: (BuildContext context) => const ExpenseBottomSheet(),
+            );
+          },
+          backgroundColor: const Color.fromARGB(255, 106, 34, 131),
+          child: const Icon(Icons.add, color: Colors.white),
+        ),
       ),
       bottomNavigationBar: PocketPalBottomNavigationBar(
         selectedIndex: _selectedIndex,

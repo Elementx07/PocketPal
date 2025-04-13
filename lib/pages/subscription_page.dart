@@ -73,6 +73,7 @@ class SubscriptionPage extends StatelessWidget {
                       color: const Color.fromARGB(45, 86, 33, 131),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
+
                     ),
                     child: ListView(
                       children: [
@@ -113,6 +114,16 @@ class SubscriptionPage extends StatelessWidget {
                           color: Colors.green,
                         ),
                       ],
+
+                      
+                    ),
+                    child: const Center(
+                      child: Text('Display list of subscriptions here',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white70,
+                          )),
+
                     ),
                   ),
                 ),
@@ -130,6 +141,7 @@ class SubscriptionPage extends StatelessWidget {
       ),
     );
   }
+
 
   Widget _buildSubscriptionItem({
     required IconData icon,
@@ -171,4 +183,5 @@ class SubscriptionPage extends StatelessWidget {
       ],
     );
   }
+
 }
