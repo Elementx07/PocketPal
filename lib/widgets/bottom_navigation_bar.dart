@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_pal/pages/subscription_page.dart';
+import 'package:pocket_pal/pages/expense_track_page.dart';
 
 class PocketPalBottomNavigationBar extends StatelessWidget {
   const PocketPalBottomNavigationBar({
@@ -21,8 +22,8 @@ class PocketPalBottomNavigationBar extends StatelessWidget {
           backgroundColor: Color.fromARGB(255, 49, 2, 65),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Search',
+          icon: Icon(Icons.history),
+          label: 'Recent',
           backgroundColor: Color.fromARGB(255, 49, 2, 65),
         ),
         BottomNavigationBarItem(
@@ -43,6 +44,11 @@ class PocketPalBottomNavigationBar extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SubscriptionPage()),
+          );
+        } else if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ExpenseTrackPage()),
           );
         } else {
           onItemTapped(index);
