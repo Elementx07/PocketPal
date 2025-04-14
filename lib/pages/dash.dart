@@ -45,28 +45,17 @@ class _DashBoardPageState extends State<DashBoardPage> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
-      extendBody: true,
       resizeToAvoidBottomInset: false,
-
-      body: screens[_selectedIndex],
-
-      floatingActionButton: Transform.scale(
-        scale: 1.2,
-        child: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              backgroundColor: Colors.grey[900],
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-              ),
-              builder: (BuildContext context) => const ExpenseBottomSheet(),
-            );
-          },
-          backgroundColor: const Color.fromARGB(255, 106, 34, 131),
-          child: const Icon(Icons.add, color: Colors.white),
-        ),
+      body: Stack(
+        children: [
+          const Positioned.fill(
+            child: RiveAnimation.asset(
+              'assets/animations/cosmos.riv',
+              fit: BoxFit.cover,
+            ),
+          ),
+          screens[_selectedIndex],
+        ],
       ),
       bottomNavigationBar: PocketPalBottomNavigationBar(
         selectedIndex: _selectedIndex,
