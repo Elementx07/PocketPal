@@ -7,7 +7,7 @@ class ExpenseTrackPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(0, 0, 0, 0),
       appBar: AppBar(
         title: const Text(
           'Recent Spendings',
