@@ -3,8 +3,11 @@ import 'package:pocket_pal/widgets/bottom_navigation_bar.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/profile_section.dart';
 import 'package:pocket_pal/widgets/pi_chart.dart';
+
+import 'package:pocket_pal/pages/game_mode.dart';
+
 import 'package:pocket_pal/pages/expense_add_sheet.dart';
-import 'package:rive/rive.dart';
+
 
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({super.key});
@@ -25,22 +28,21 @@ class _DashBoardPageState extends State<DashBoardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> screens = [
+      Builder(builder: (context) => _buildBody(context)),
+      // ExpenseTrackerScreen(),
+      // SubscriptionTrackerScreen(),
+      GameModeScreen()
+    ];
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: RiveAnimation.asset(
-              'assets/animations/cosmos.riv',
-              fit: BoxFit.cover,
-            ),
-          ),
-          _buildBody(context),
-        ],
-      ),
+
+      body: screens[_selectedIndex],
+
       floatingActionButton: Transform.scale(
         scale: 1.2,
         child: FloatingActionButton(
