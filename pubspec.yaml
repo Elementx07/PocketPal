@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   syncfusion_flutter_charts: ^29.1.35
   sliding_up_panel: ^2.0.0+1
+  lottie: ^3.3.1
 
 
   english_words: ^4.0.0
@@ -25,6 +26,9 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
+  assets:
+    - assets/123.jpg
+    - assets/animations/rocketttt.json
   uses-material-design: true
   fonts:
     - family: Arcade
