@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_pal/widgets/rocket_launch_animation.dart';
-
+import 'package:rive/rive.dart';
 class GameModeScreen extends StatefulWidget {
   const GameModeScreen({super.key});
 
@@ -20,11 +20,9 @@ class _GameModeScreenState extends State<GameModeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          // Background Space Loop (replace with your looping clip if needed)
-          Container(color: Colors.black),
-
           // Rocket Launch Animation
           RocketLaunchAnimation(onAnimationComplete: _onLaunchComplete),
 
