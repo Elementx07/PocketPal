@@ -6,6 +6,7 @@ class AddSubscriptionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: const Color.fromARGB(255, 61, 14, 89),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 500),
         child: Padding(

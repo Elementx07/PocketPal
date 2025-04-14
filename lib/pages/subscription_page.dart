@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
-import 'package:rive/rive.dart'; // Add this import
+import 'package:rive/rive.dart'; 
+import 'package:pocket_pal/widgets/add_subscription_dialog.dart';
 
 class SubscriptionPage extends StatelessWidget {
   const SubscriptionPage({super.key});
@@ -25,12 +26,6 @@ class SubscriptionPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          const Positioned.fill(
-            child: RiveAnimation.asset(
-              'assets/animations/cosmos.riv',
-              fit: BoxFit.cover,
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -117,14 +112,6 @@ class SubscriptionPage extends StatelessWidget {
 
                       
                     ),
-                    child: const Center(
-                      child: Text('Display list of subscriptions here',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white70,
-                          )),
-
-                    ),
                   ),
                 ),
               ],
@@ -134,7 +121,12 @@ class SubscriptionPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Implement add subscription functionality
+          // add subscription dialog widget
+          showDialog(
+            context: context,
+            builder: (context) => const AddSubscriptionDialog(),
+          );
+
         },
         backgroundColor: const Color.fromARGB(255, 49, 2, 65),
         child: const Icon(Icons.add, color: Colors.white),
