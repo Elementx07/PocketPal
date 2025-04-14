@@ -22,6 +22,7 @@ class _RocketLaunchAnimationState extends State<RocketLaunchAnimation>
 
   bool showCountdownText = false;
   bool animationReady = false; // 👈 NEW FLAG to avoid early build
+  bool _isDisposed = false; // Add this flag at the class level
 
   @override
   void initState() {
@@ -73,24 +74,32 @@ class _RocketLaunchAnimationState extends State<RocketLaunchAnimation>
   }
 
   Future<void> _startRocketSequence() async {
+    if (_isDisposed) return; // Early return if disposed
+    
     await Future.delayed(const Duration(milliseconds: 500));
+    if (_isDisposed) return;
     await _initialLaunchController.forward();
 
     await Future.delayed(const Duration(milliseconds: 300));
+    if (_isDisposed) return;
     await _midPauseController.forward();
 
+    if (_isDisposed) return;
     setState(() {
       showCountdownText = true;
     });
 
     await Future.delayed(const Duration(seconds: 3));
+    if (_isDisposed) return;
     await _finalLaunchController.forward();
 
+    if (_isDisposed) return;
     widget.onAnimationComplete();
   }
 
   @override
   void dispose() {
+    _isDisposed = true; // Set flag before disposing controllers
     _initialLaunchController.dispose();
     _midPauseController.dispose();
     _finalLaunchController.dispose();
