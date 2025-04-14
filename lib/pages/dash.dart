@@ -4,9 +4,14 @@ import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/profile_section.dart';
 import 'package:pocket_pal/widgets/pi_chart.dart';
 
+import 'package:rive/rive.dart';
+
+
+
 import 'package:pocket_pal/pages/game_mode.dart';
 
 import 'package:pocket_pal/pages/expense_add_sheet.dart';
+
 
 
 class DashBoardPage extends StatefulWidget {
