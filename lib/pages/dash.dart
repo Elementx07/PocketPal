@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_pal/pages/expense_track_page.dart';
+import 'package:pocket_pal/pages/subscription_page.dart';
 import 'package:pocket_pal/widgets/bottom_navigation_bar.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/profile_section.dart';
@@ -30,8 +32,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
   Widget build(BuildContext context) {
     final List<Widget> screens = [
       Builder(builder: (context) => _buildBody(context)),
-      // ExpenseTrackerScreen(),
-      // SubscriptionTrackerScreen(),
+      ExpenseTrackPage(),
+      SubscriptionPage(),
       GameModeScreen()
     ];
 

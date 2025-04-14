@@ -40,19 +40,8 @@ class PocketPalBottomNavigationBar extends StatelessWidget {
       currentIndex: selectedIndex,
       selectedItemColor: Colors.white,
       onTap: (index) {
-        if (index == 2) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SubscriptionPage()),
-          );
-        } else if (index == 1) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ExpenseTrackPage()),
-          );
-        } else {
-          onItemTapped(index);
-        }
+        onItemTapped(index);
+       
       },
     );
   }
