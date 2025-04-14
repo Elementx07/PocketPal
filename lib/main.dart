@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_pal/pages/dash.dart';
 import 'package:pocket_pal/pages/sign_in.dart';
 import 'package:flutter/services.dart';
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
 
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SignInScreen());
+
+    return MaterialApp(debugShowCheckedModeBanner: false, home: DashBoardPage());
   }
 }

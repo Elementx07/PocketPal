@@ -4,7 +4,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class PieChartWidget extends StatelessWidget {
   final List<ChartData> data;
 
-  const PieChartWidget({Key? key, required this.data}) : super(key: key);
+  const PieChartWidget({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
