@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:lottie/lottie.dart';
+import 'cosmos.dart';
 
 class RocketLaunchAnimation extends StatefulWidget {
   final VoidCallback onAnimationComplete;
 
-  const RocketLaunchAnimation({super.key, required this.onAnimationComplete});
+  const RocketLaunchAnimation({Key? key, required this.onAnimationComplete})
+      : super(key: key);
 
   @override
-  State<RocketLaunchAnimation> createState() => _RocketLaunchAnimationState();
+  _RocketLaunchAnimation createState() => _RocketLaunchAnimation();
 }
 
-class _RocketLaunchAnimationState extends State<RocketLaunchAnimation>
+class _RocketLaunchAnimation extends State<RocketLaunchAnimation>
     with TickerProviderStateMixin {
   late AnimationController _initialLaunchController;
   late AnimationController _midPauseController;
@@ -20,8 +23,10 @@ class _RocketLaunchAnimationState extends State<RocketLaunchAnimation>
   late Animation<Offset> _midOffset;
   late Animation<Offset> _finalOffset;
 
-  bool showCountdownText = false;
-  bool animationReady = false; // 👈 NEW FLAG to avoid early build
+  String countdownText = '';
+  bool animationReady = false;
+
+  late Timer _countdownTimer;
 
   @override
   void initState() {
@@ -66,27 +71,48 @@ class _RocketLaunchAnimationState extends State<RocketLaunchAnimation>
       CurvedAnimation(parent: _finalLaunchController, curve: Curves.easeInExpo),
     );
 
-    animationReady = true; // 👈 Now it's safe to build
+    animationReady = true; // Safe to build after this point
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _startRocketSequence();
     });
   }
 
   Future<void> _startRocketSequence() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 400));
     await _initialLaunchController.forward();
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 250));
     await _midPauseController.forward();
 
     setState(() {
-      showCountdownText = true;
+      countdownText = '3';
     });
 
-    await Future.delayed(const Duration(seconds: 3));
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (countdownText == '3') {
+        setState(() {
+          countdownText = '2';
+        });
+      } else if (countdownText == '2') {
+        setState(() {
+          countdownText = '1';
+        });
+      } else if (countdownText == '1') {
+        setState(() {
+          countdownText = ''; // Clear the countdown text
+        });
+
+        // Stop the timer after the countdown is done
+        _countdownTimer.cancel();
+      }
+    });
+
+    await Future.delayed(
+        const Duration(seconds: 3)); // Wait for countdown to finish
+
     await _finalLaunchController.forward();
 
-    widget.onAnimationComplete();
+    widget.onAnimationComplete(); // Notify that animation is complete
   }
 
   @override
@@ -94,19 +120,19 @@ class _RocketLaunchAnimationState extends State<RocketLaunchAnimation>
     _initialLaunchController.dispose();
     _midPauseController.dispose();
     _finalLaunchController.dispose();
+    _countdownTimer.cancel(); // Cancel the timer on dispose
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (!animationReady) {
-      return const SizedBox(); // return empty if not ready
+      return const SizedBox(); // Return empty if not ready
     }
 
     return Stack(
       children: [
-        Container(color: Colors.black),
-
+        const CosmosBackground(),
         AnimatedBuilder(
           animation: Listenable.merge([
             _initialLaunchController,
@@ -132,21 +158,27 @@ class _RocketLaunchAnimationState extends State<RocketLaunchAnimation>
           },
           child: Center(
             child: SizedBox(
-              width: 250,
-              height: 250,
+              width: 300,
+              height: 300,
               child: Lottie.asset('assets/animations/rocketttt.json'),
             ),
           ),
         ),
-
-        if (showCountdownText)
-          const Center(
-            child: Text(
-              'Launching Game Mode in 3...2...1',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+        if (countdownText.isNotEmpty) // Only show countdown when it's not empty
+          Positioned(
+            bottom:
+                330, // Adjust this value to position the text below the rocket
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                'Launching Game Mode in $countdownText',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Arcade',
+                ),
               ),
             ),
           ),

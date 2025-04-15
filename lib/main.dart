@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_pal/pages/sign_in.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:pocket_pal/pages/splash_screen.dart'; // new import
+import 'package:pocket_pal/util/streak_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => StreakCoinProvider()
+        ..loadData()
+        ..updateStreakWithDate(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,6 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
 
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SignInScreen());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(), // Start here now
+    );
   }
 }

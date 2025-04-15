@@ -14,10 +14,10 @@ dependencies:
   syncfusion_flutter_charts: ^29.1.35
   sliding_up_panel: ^2.0.0+1
   lottie: ^3.3.1
-
-
+  rive: ^0.12.0
   english_words: ^4.0.0
-  provider: ^6.1.2
+  provider: ^6.1.4
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +29,8 @@ flutter:
   assets:
     - assets/123.jpg
     - assets/animations/rocketttt.json
+    - assets/animations/cosmos.riv
+    - assets/logo.jpg
   uses-material-design: true
   fonts:
     - family: Arcade

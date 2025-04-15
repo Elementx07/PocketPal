@@ -4,6 +4,9 @@ import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/profile_section.dart';
 import 'package:pocket_pal/widgets/pi_chart.dart';
 import 'package:pocket_pal/pages/game_mode.dart';
+import 'package:pocket_pal/pages/expense_track_page.dart';
+import 'package:pocket_pal/pages/subscription_page.dart';
+import 'package:pocket_pal/util/streak_manager.dart';
 
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({super.key});
@@ -16,6 +19,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
   int _selectedIndex = 0;
   bool _isProfileVisible = true;
 
+  @override
+  void initState() {
+    super.initState();
+    updateStreak(); // 🔥 This ensures the streak updates with real time every time dashboard is opened
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -26,8 +35,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
   Widget build(BuildContext context) {
     final List<Widget> screens = [
       Builder(builder: (context) => _buildBody(context)),
-      // ExpenseTrackerScreen(),
-      // SubscriptionTrackerScreen(),
+      ExpenseTrackPage(),
+      SubscriptionPage(),
       GameModeScreen()
     ];
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_pal/widgets/rocket_launch_animation.dart';
+import 'package:pocket_pal/widgets/game_mode_text.dart';
+import 'package:pocket_pal/widgets/pocket_coin_display.dart';
 
 class GameModeScreen extends StatefulWidget {
   const GameModeScreen({super.key});
@@ -10,6 +12,7 @@ class GameModeScreen extends StatefulWidget {
 
 class _GameModeScreenState extends State<GameModeScreen> {
   bool showContent = false;
+  int pocketCoins = 300;
 
   void _onLaunchComplete() {
     setState(() {
@@ -17,36 +20,69 @@ class _GameModeScreenState extends State<GameModeScreen> {
     });
   }
 
+//leaderboard BULLSHIT
+  void _showLeaderboardPopup(BuildContext context) {
+    print("LEADERBOARD BUTTON TAPPED");
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("🏆 Leaderboard"),
+        content: Text("This is the leaderboard popup."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Close"),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Space Loop (replace with your looping clip if needed)
-          Container(color: Colors.black),
-
-          // Rocket Launch Animation
           RocketLaunchAnimation(onAnimationComplete: _onLaunchComplete),
-
-          // Post-launch content
           if (showContent)
             Positioned.fill(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 40,
-                ),
-                child: Column(
+              child: Builder(
+                builder: (innerContext) => Stack(
                   children: [
-                    _buildInfoCard(),
-                    const SizedBox(height: 16),
-                    _buildNextLevelCard(),
-                    const SizedBox(height: 16),
-                    _buildChallengesCard(),
-                    const SizedBox(height: 16),
-                    _buildPlaceholder("🏆 Leaderboard"),
-                    const SizedBox(height: 16),
-                    _buildPlaceholder("🎯 Daily Spin Wheel"),
+                    Positioned(
+                      top: 50,
+                      left: 20,
+                      child: PocketCoinsWidget(coins: pocketCoins),
+                    ),
+                    Positioned(
+                      top: 50,
+                      right: 20,
+                      child: IconButton(
+                        onPressed: () => _showLeaderboardPopup(innerContext),
+                        icon: const Icon(Icons.leaderboard, size: 30),
+                        color: Colors.white,
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.only(
+                            top: 100, left: 24, right: 24, bottom: 40),
+                        child: Column(
+                          children: [
+                            _buildInfoCard(),
+                            const SizedBox(height: 16),
+                            _buildTiersButton(),
+                            const SizedBox(height: 16),
+                            _buildChallengesCard(),
+                            const SizedBox(height: 16),
+                            _buildPlaceholder("🏆 Leaderboard"),
+                            const SizedBox(height: 16),
+                            _buildPlaceholder("🎯 Daily Spin Wheel"),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -57,16 +93,84 @@ class _GameModeScreenState extends State<GameModeScreen> {
   }
 
   Widget _buildInfoCard() {
-    return _simpleCard(
-      title: "🔥 Streak: 5 days\n🚀 Tier: Silver",
-      buttonText: "Claim Reward",
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      elevation: 8,
+      child: SizedBox(
+        height: 500,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Card(
+                color: Colors.orange,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 70.0, vertical: 16.0),
+                  child: Column(
+                    children: [
+                      Text("LEVEL 1",
+                          style: arcadeFont(fontSize: 25, color: Colors.black)),
+                      SizedBox(height: 8),
+                      Text("NOVICE",
+                          style: arcadeFont(fontSize: 25, color: Colors.black)),
+                      SizedBox(height: 8),
+                      Text("25 DAYS",
+                          style: arcadeFont(fontSize: 30, color: Colors.black)),
+                    ],
+                  ),
+                ),
+              ),
+              Text(
+                  "• 20 free Pocket Coins\n\n• 3 months of Wynk Music\n\n• Free Cash upto 100rs\n\n• Special Swags",
+                  style: arcadeFont(
+                      fontSize: 18, color: Colors.black, letterSpacing: 2)),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  elevation: 10,
+                ),
+                child: Text("Claim Reward",
+                    style: arcadeFont(fontSize: 14, color: Colors.white)),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  Widget _buildNextLevelCard() {
-    return _simpleCard(
-      title: "Next Tier Progress",
-      buttonText: "View All Tiers",
+  Widget _buildTiersButton() {
+    return ElevatedButton.icon(
+      onPressed: () {
+        // Do the tier dance here
+      },
+      icon: Icon(Icons.military_tech),
+      label: Text(
+        'Check Tiers ->',
+        style: arcadeFont(fontSize: 16, color: Colors.white),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        elevation: 10,
+      ),
     );
   }
 
