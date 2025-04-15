@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'dart:async';
 import 'package:lottie/lottie.dart';
 import 'cosmos.dart';
 
+
 class RocketLaunchAnimation extends StatefulWidget {
   final VoidCallback onAnimationComplete;
+
 
   const RocketLaunchAnimation({Key? key, required this.onAnimationComplete})
       : super(key: key);
@@ -14,6 +17,7 @@ class RocketLaunchAnimation extends StatefulWidget {
 }
 
 class _RocketLaunchAnimation extends State<RocketLaunchAnimation>
+
     with TickerProviderStateMixin {
   late AnimationController _initialLaunchController;
   late AnimationController _midPauseController;
@@ -23,10 +27,12 @@ class _RocketLaunchAnimation extends State<RocketLaunchAnimation>
   late Animation<Offset> _midOffset;
   late Animation<Offset> _finalOffset;
 
+
   String countdownText = '';
   bool animationReady = false;
 
   late Timer _countdownTimer;
+
 
   @override
   void initState() {
@@ -117,6 +123,7 @@ class _RocketLaunchAnimation extends State<RocketLaunchAnimation>
 
   @override
   void dispose() {
+
     _initialLaunchController.dispose();
     _midPauseController.dispose();
     _finalLaunchController.dispose();
@@ -128,6 +135,7 @@ class _RocketLaunchAnimation extends State<RocketLaunchAnimation>
   Widget build(BuildContext context) {
     if (!animationReady) {
       return const SizedBox(); // Return empty if not ready
+
     }
 
     return Stack(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
+import 'package:rive/rive.dart'; 
+import 'package:pocket_pal/widgets/add_subscription_dialog.dart';
 
 class SubscriptionPage extends StatelessWidget {
   const SubscriptionPage({super.key});
@@ -8,9 +10,12 @@ class SubscriptionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
+
+      
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Subscription    Tracker',
+        title: const Text('Subscription    Tracker', 
+
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -54,9 +59,8 @@ class SubscriptionPage extends StatelessWidget {
                 // Spending Insights
                 const Text(
                   'Spending Insights',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
                 Expanded(
@@ -66,15 +70,48 @@ class SubscriptionPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(45, 86, 33, 131),
                       borderRadius: BorderRadius.circular(10),
-                      border:
-                          Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
+                      border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
+
                     ),
-                    child: const Center(
-                      child: Text('Display list of subscriptions here',
+                    child: ListView(
+                      children: [
+                        const Text(
+                          'Breakdown of your subscription costs',
                           style: TextStyle(
-                            fontSize: 16,
                             color: Colors.white70,
-                          )),
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        _buildSubscriptionItem(
+                          icon: Icons.movie,
+                          category: 'Entertainment',
+                          amount: 848,
+                          progress: 0.8,
+                          color: Colors.purple,
+                        ),
+                        _buildSubscriptionItem(
+                          icon: Icons.music_note,
+                          category: 'Music',
+                          amount: 199,
+                          progress: 0.3,
+                          color: Colors.red,
+                        ),
+                        _buildSubscriptionItem(
+                          icon: Icons.work,
+                          category: 'Productivity',
+                          amount: 125,
+                          progress: 0.2,
+                          color: Colors.orange,
+                        ),
+                        _buildSubscriptionItem(
+                          icon: Icons.shopping_bag,
+                          category: 'Shopping',
+                          amount: 999,
+                          progress: 0.95,
+                          color: Colors.green,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -85,11 +122,57 @@ class SubscriptionPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: Implement add subscription functionality
+          // add subscription dialog widget
+          showDialog(
+            context: context,
+            builder: (context) => const AddSubscriptionDialog(),
+          );
         },
         backgroundColor: const Color.fromARGB(255, 49, 2, 65),
         child: const Icon(Icons.add, color: Colors.white),
       ),
+    );
+  }
+
+
+  Widget _buildSubscriptionItem({
+    required IconData icon,
+    required String category,
+    required double amount,
+    required double progress,
+    required Color color,
+  }) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: [
+              Icon(icon, color: color),
+              const SizedBox(width: 8),
+              Text(
+                category,
+                style: const TextStyle(color: Colors.white70),
+              ),
+              const Spacer(),
+              Text(
+                '₹$amount/month',
+                style: const TextStyle(color: Colors.white70),
+              ),
+            ],
+          ),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: LinearProgressIndicator(
+            value: progress,
+            backgroundColor: Colors.grey[800],
+            valueColor: AlwaysStoppedAnimation<Color>(color),
+            minHeight: 8,
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
     );
   }
 }

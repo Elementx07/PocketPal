@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pocket_pal/providers/expense_provider.dart';
 import 'package:pocket_pal/pages/expense_add_sheet.dart';
 
 class ExpenseTrackPage extends StatelessWidget {
@@ -7,7 +9,7 @@ class ExpenseTrackPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(0, 0, 0, 0),
       appBar: AppBar(
         title: const Text(
           'Recent Spendings',
@@ -20,12 +22,59 @@ class ExpenseTrackPage extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 49, 2, 65),
         automaticallyImplyLeading: false,
       ),
-      //sized box for some space
-      
       body: Column(
         children: [
+          Consumer<ExpenseProvider>(
+            builder: (context, provider, child) {
+              return Container(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Total: \$${provider.totalExpenses.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
           const SizedBox(height: 20),
-          const RecentSpendings(),
+          Expanded(
+            child: Consumer<ExpenseProvider>(
+              builder: (context, provider, child) {
+                final expenses = provider.expenses;
+                if (expenses.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'No expenses yet!',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: expenses.length,
+                  itemBuilder: (context, index) {
+                    final expense = expenses[index];
+                    return _buildExpenseCard(
+                      expense.description,
+                      expense.category,
+                      expense.category == 'Income' 
+                          ? '-\$${expense.amount.toStringAsFixed(2)}'
+                          : '\$${expense.amount.toStringAsFixed(2)}',
+                      expense.icon,
+                      expense.color,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
       floatingActionButton: Transform.scale(
@@ -48,61 +97,6 @@ class ExpenseTrackPage extends StatelessWidget {
       ),
     );
   }
-}
-
-class RecentSpendings extends StatelessWidget {
-  const RecentSpendings({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            _buildExpenseCard(
-              'Zomato Order',
-              'Food',
-              '\$25.99',
-              Icons.restaurant,
-              Colors.pink[100]!,
-            ),
-            _buildExpenseCard(
-              'Amazon Order',
-              'Shopping',
-              '\$149.99',
-              Icons.shopping_bag,
-              Colors.purple[200]!,
-            ),
-            _buildExpenseCard(
-              'Netflix Subscription',
-              'Entertainment',
-              '\$14.99',
-              Icons.sports_esports,
-              Colors.orange[200]!,
-            ),
-            _buildExpenseCard(
-              'Electricity Bill',
-              'Bills',
-              '\$85.50',
-              Icons.bolt,
-              Colors.yellow[600]!,
-            ),
-            _buildExpenseCard(
-              'Phone Bill',
-              'Bills',
-              '\$45.00',
-              Icons.phone_android,
-              Colors.blue[300]!,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
   Widget _buildExpenseCard(
     String description,
     String category,

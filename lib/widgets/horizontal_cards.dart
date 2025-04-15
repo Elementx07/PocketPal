@@ -59,12 +59,13 @@ class HorizontalCards extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Card(
               elevation: 10,
+              
+
               shadowColor: card.color.withAlpha(100),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Container(
-                //set the width of the card
                 width: 340,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -152,7 +153,7 @@ class HorizontalCards extends StatelessWidget {
     return Container(
       width: 90,
       height: 80,
-      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+      padding: const EdgeInsets.fromLTRB(15,0,0,0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         boxShadow: [

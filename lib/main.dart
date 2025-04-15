@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:pocket_pal/pages/splash_screen.dart'; // new import
+
+import 'package:pocket_pal/pages/splash_screen.dart';
+import 'package:pocket_pal/pages/dash.dart';
+import 'package:pocket_pal/pages/sign_in.dart';
+
 import 'package:pocket_pal/util/streak_provider.dart';
+import 'package:pocket_pal/providers/expense_provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => StreakCoinProvider()
-        ..loadData()
-        ..updateStreakWithDate(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => StreakCoinProvider()
+          ..loadData()
+          ..updateStreakWithDate()),
+        ChangeNotifierProvider(create: (_) => ExpenseProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -21,10 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
-
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(), // Start here now
+      home: SplashScreen(),
     );
   }
 }

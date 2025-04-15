@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pocket_pal/widgets/rocket_launch_animation.dart';
 import 'package:pocket_pal/widgets/game_mode_text.dart';
 import 'package:pocket_pal/widgets/pocket_coin_display.dart';
+import 'package:rive/rive.dart';
 
 class GameModeScreen extends StatefulWidget {
   const GameModeScreen({super.key});
@@ -12,13 +13,17 @@ class GameModeScreen extends StatefulWidget {
 
 class _GameModeScreenState extends State<GameModeScreen> {
   bool showContent = false;
+
   int pocketCoins = 300;
+
+
 
   void _onLaunchComplete() {
     setState(() {
       showContent = true;
     });
   }
+
 
 //leaderboard BULLSHIT
   void _showLeaderboardPopup(BuildContext context) {
@@ -83,6 +88,35 @@ class _GameModeScreenState extends State<GameModeScreen> {
                         ),
                       ),
                     ),
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        children: [
+          // Rocket Launch Animation
+          RocketLaunchAnimation(onAnimationComplete: _onLaunchComplete),
+
+          // Post-launch content
+          if (showContent)
+            Positioned.fill(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 40,
+                ),
+                child: Column(
+                  children: [
+                    _buildInfoCard(),
+                    const SizedBox(height: 16),
+                    _buildNextLevelCard(),
+                    const SizedBox(height: 16),
+                    _buildChallengesCard(),
+                    const SizedBox(height: 16),
+                    _buildPlaceholder("🏆 Leaderboard"),
+                    const SizedBox(height: 16),
+                    _buildPlaceholder("🎯 Daily Spin Wheel"),
                   ],
                 ),
               ),
@@ -93,6 +127,7 @@ class _GameModeScreenState extends State<GameModeScreen> {
   }
 
   Widget _buildInfoCard() {
+
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       elevation: 8,
@@ -171,6 +206,16 @@ class _GameModeScreenState extends State<GameModeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         elevation: 10,
       ),
+    return _simpleCard(
+      title: "🔥 Streak: 5 days\n🚀 Tier: Silver",
+      buttonText: "Claim Reward",
+    );
+  }
+
+  Widget _buildNextLevelCard() {
+    return _simpleCard(
+      title: "Next Tier Progress",
+      buttonText: "View All Tiers",
     );
   }
 

@@ -36,3 +36,4 @@ flutter:
     - family: Arcade
       fonts:
         - asset: fonts/ARCADECLASSIC.TTF
+    
