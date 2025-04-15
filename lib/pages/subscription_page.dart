@@ -10,10 +10,12 @@ class SubscriptionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
+
       
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Subscription    Tracker', 
+
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -57,6 +59,7 @@ class SubscriptionPage extends StatelessWidget {
                 // Spending Insights
                 const Text(
                   'Spending Insights',
+
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
@@ -109,8 +112,6 @@ class SubscriptionPage extends StatelessWidget {
                           color: Colors.green,
                         ),
                       ],
-
-                      
                     ),
                   ),
                 ),
@@ -126,7 +127,6 @@ class SubscriptionPage extends StatelessWidget {
             context: context,
             builder: (context) => const AddSubscriptionDialog(),
           );
-
         },
         backgroundColor: const Color.fromARGB(255, 49, 2, 65),
         child: const Icon(Icons.add, color: Colors.white),
@@ -175,5 +175,4 @@ class SubscriptionPage extends StatelessWidget {
       ],
     );
   }
-
 }

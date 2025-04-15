@@ -42,7 +42,6 @@ class HorizontalCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final cards = cardDataList ??
         (isSubscriptionPage
             ? _defaultSubscriptionCards
@@ -53,22 +52,20 @@ class HorizontalCards extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-
         itemCount: cards.length,
         itemBuilder: (context, index) {
           final card = cards[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-
             child: Card(
               elevation: 10,
               
+
               shadowColor: card.color.withAlpha(100),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Container(
-                //set the width of the card 
                 width: 340,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -81,7 +78,6 @@ class HorizontalCards extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: card.showProgress

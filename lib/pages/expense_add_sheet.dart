@@ -86,6 +86,9 @@ class _ExpenseBottomSheetState extends State<ExpenseBottomSheet> {
             fontWeight: FontWeight.bold,
           ),
         ),
+
+        const SizedBox(width: 40),
+
         IconButton(
           icon: const Icon(Icons.check, color: Colors.white),
           onPressed: _saveExpense,
@@ -182,6 +185,7 @@ class _ExpenseBottomSheetState extends State<ExpenseBottomSheet> {
   Widget _buildNoteInput() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
+
       child: TextField(
         autofocus: false,
         keyboardType: TextInputType.text,

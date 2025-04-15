@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
+
 import 'package:pocket_pal/pages/expense_track_page.dart';
 import 'package:pocket_pal/pages/subscription_page.dart';
+import 'package:pocket_pal/pages/game_mode.dart';
+
 import 'package:pocket_pal/widgets/bottom_navigation_bar.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/profile_section.dart';
 import 'package:pocket_pal/widgets/pi_chart.dart';
-import 'package:rive/rive.dart';
-import 'package:pocket_pal/pages/game_mode.dart';
-import 'package:pocket_pal/pages/expense_add_sheet.dart';
 
-
+import 'package:pocket_pal/util/streak_manager.dart';
 
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({super.key});
@@ -22,6 +23,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
   int _selectedIndex = 0;
   bool _isProfileVisible = true;
 
+  @override
+  void initState() {
+    super.initState();
+    updateStreak();
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -32,9 +39,9 @@ class _DashBoardPageState extends State<DashBoardPage> {
   Widget build(BuildContext context) {
     final List<Widget> screens = [
       Builder(builder: (context) => _buildBody(context)),
-      ExpenseTrackPage(),
-      SubscriptionPage(),
-      GameModeScreen()
+      const ExpenseTrackPage(),
+      const SubscriptionPage(),
+      const GameModeScreen()
     ];
 
     return Scaffold(
@@ -61,9 +68,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
 
   Widget _buildBody(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.transparent,
-      ),
+      decoration: const BoxDecoration(color: Colors.transparent),
       child: Column(
         children: [
           ProfileSection(
@@ -80,11 +85,9 @@ class _DashBoardPageState extends State<DashBoardPage> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.03),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                       const HorizontalCards(isSubscriptionPage: false),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.03),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                       const PieChartWidget(),
                       const SizedBox(height: 100),
                     ],

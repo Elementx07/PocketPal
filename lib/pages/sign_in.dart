@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pocket_pal/pages/dash.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -14,28 +14,25 @@ class _SignInScreenState extends State<SignInScreen>
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _errorText = '';
+
   late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimationLogo;
-  late Animation<double> _fadeAnimationFields;
+  late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-
     _animationController = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(begin: 2.0, end: 1.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
     _fadeAnimationLogo = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
     );
-    _fadeAnimationFields = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
     );
 
     _animationController.forward();
@@ -69,6 +66,57 @@ class _SignInScreenState extends State<SignInScreen>
     }
   }
 
+  Widget _buildAnimatedTextField(TextEditingController controller, String hint,
+      {bool obscureText = false}) {
+    return FadeTransition(
+      opacity: _fadeAnimationLogo,
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        style: const TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: const TextStyle(color: Colors.white54),
+          filled: true,
+          fillColor: const Color.fromARGB(100, 255, 255, 255),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton() {
+    return GestureDetector(
+      onTap: _validateAndSignIn,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+        decoration: BoxDecoration(
+          color: Colors.deepPurpleAccent,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 8,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: const Text(
+          'Sign In',
+          style: TextStyle(
+            fontFamily: 'Arcade',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 130),
+                  const SizedBox(height: 140),
                   AnimatedBuilder(
                     animation: _animationController,
                     builder: (context, child) {
@@ -104,7 +152,7 @@ class _SignInScreenState extends State<SignInScreen>
                         child: Text(
                           'Pocket Pal',
                           style: TextStyle(
-                            fontSize: 40,
+                            fontSize: 60,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Arcade',
                             color: Colors.white,
@@ -125,7 +173,7 @@ class _SignInScreenState extends State<SignInScreen>
                       );
                     },
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
                   _buildAnimatedTextField(_usernameController, 'Username'),
                   const SizedBox(height: 20),
                   _buildAnimatedTextField(_passwordController, 'Password',
@@ -136,16 +184,17 @@ class _SignInScreenState extends State<SignInScreen>
                       style: const TextStyle(color: Colors.redAccent),
                     ),
                   const SizedBox(height: 30),
-                  _buildAnimatedButton(),
+                  _buildButton(),
                   const SizedBox(height: 20),
                   TextButton(
                     onPressed: () {},
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontFamily: 'Arcade'),
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontFamily: 'Arcade',
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -155,70 +204,6 @@ class _SignInScreenState extends State<SignInScreen>
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildAnimatedTextField(TextEditingController controller, String hint,
-      {bool obscureText = false}) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return Opacity(
-          opacity: _fadeAnimationFields.value,
-          child: TextField(
-            controller: controller,
-            obscureText: obscureText,
-            style: const TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: const TextStyle(color: Colors.white54),
-              filled: true,
-              fillColor: const Color.fromARGB(100, 255, 255, 255),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildAnimatedButton() {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return Opacity(
-          opacity: _fadeAnimationFields.value,
-          child: GestureDetector(
-            onTap: _validateAndSignIn,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              decoration: BoxDecoration(
-                color: Colors.deepPurpleAccent,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: const Text(
-                'Sign In',
-                style: TextStyle(
-                  fontFamily: 'Arcade',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }
