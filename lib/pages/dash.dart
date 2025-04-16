@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
+
+import 'package:pocket_pal/pages/expense_track_page.dart';
+import 'package:pocket_pal/pages/subscription_page.dart';
+import 'package:pocket_pal/pages/game_mode.dart';
+
 import 'package:pocket_pal/widgets/bottom_navigation_bar.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/profile_section.dart';
 import 'package:pocket_pal/widgets/pi_chart.dart';
-import 'package:pocket_pal/pages/game_mode.dart';
-import 'package:pocket_pal/pages/expense_track_page.dart';
-import 'package:pocket_pal/pages/subscription_page.dart';
+
 import 'package:pocket_pal/util/streak_manager.dart';
 
 class DashBoardPage extends StatefulWidget {
@@ -22,7 +26,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   @override
   void initState() {
     super.initState();
-    updateStreak(); // 🔥 This ensures the streak updates with real time every time dashboard is opened
+    updateStreak();
   }
 
   void _onItemTapped(int index) {
@@ -35,17 +39,26 @@ class _DashBoardPageState extends State<DashBoardPage> {
   Widget build(BuildContext context) {
     final List<Widget> screens = [
       Builder(builder: (context) => _buildBody(context)),
-      ExpenseTrackPage(),
-      SubscriptionPage(),
-      GameModeScreen()
+      const ExpenseTrackPage(),
+      const SubscriptionPage(),
+      const GameModeScreen()
     ];
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
-      extendBody: true,
       resizeToAvoidBottomInset: false,
-      body: screens[_selectedIndex],
+      body: Stack(
+        children: [
+          const Positioned.fill(
+            child: RiveAnimation.asset(
+              'assets/animations/cosmos.riv',
+              fit: BoxFit.cover,
+            ),
+          ),
+          screens[_selectedIndex],
+        ],
+      ),
       bottomNavigationBar: PocketPalBottomNavigationBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
@@ -55,9 +68,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
 
   Widget _buildBody(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 78, 6, 123),
-      ),
+      decoration: const BoxDecoration(color: Colors.transparent),
       child: Column(
         children: [
           ProfileSection(
@@ -79,7 +90,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                       HorizontalCards(),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.03),
-                      PieChartWidget(data: getPieChartData()),
+                      const PieChartWidget(),
                       const SizedBox(height: 100),
                     ],
                   ),

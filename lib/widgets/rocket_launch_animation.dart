@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'dart:async';
 import 'package:lottie/lottie.dart';
 import 'cosmos.dart';
@@ -158,21 +159,21 @@ class _RocketLaunchAnimation extends State<RocketLaunchAnimation>
           },
           child: Center(
             child: SizedBox(
-              width: 300,
-              height: 300,
-              child: Lottie.asset('assets/animations/rocketttt.json'),
+              width: 500,
+              height: 500,
+              child: Lottie.asset('assets/animations/rockettttt.json'),
             ),
           ),
         ),
         if (countdownText.isNotEmpty) // Only show countdown when it's not empty
           Positioned(
             bottom:
-                330, // Adjust this value to position the text below the rocket
+                310, // Adjust this value to position the text below the rocket
             left: 0,
             right: 0,
             child: Center(
               child: Text(
-                'Launching Game Mode in $countdownText',
+                'Launching Game Mode in   $countdownText',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 22,

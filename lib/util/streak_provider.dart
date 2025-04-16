@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StreakCoinProvider extends ChangeNotifier {
-  int _streak = 0;
+  int _streak = 1;
 
   int get streak => _streak;
 

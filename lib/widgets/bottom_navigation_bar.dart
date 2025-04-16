@@ -20,8 +20,8 @@ class PocketPalBottomNavigationBar extends StatelessWidget {
           backgroundColor: Color.fromARGB(255, 49, 2, 65),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Search',
+          icon: Icon(Icons.history),
+          label: 'Recent',
           backgroundColor: Color.fromARGB(255, 49, 2, 65),
         ),
         BottomNavigationBarItem(
@@ -37,7 +37,9 @@ class PocketPalBottomNavigationBar extends StatelessWidget {
       ],
       currentIndex: selectedIndex,
       selectedItemColor: Colors.white,
-      onTap: (index) => onItemTapped(index),
+      onTap: (index) {
+        onItemTapped(index);
+      },
     );
   }
 }

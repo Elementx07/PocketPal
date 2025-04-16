@@ -42,6 +42,7 @@ class HorizontalCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Choose which default list to show based on the page
     final cards = cardDataList ??
         (isSubscriptionPage
             ? _defaultSubscriptionCards
@@ -64,7 +65,6 @@ class HorizontalCards extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Container(
-                //set the width of the card
                 width: 340,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -79,9 +79,9 @@ class HorizontalCards extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: card.showProgress
-                      ? _buildProgressCard(card)
-                      : _buildCountCard(card),
+                  child: isSubscriptionPage
+                      ? _buildCountCard(card)
+                      : _buildProgressCard(card),
                 ),
               ),
             ),

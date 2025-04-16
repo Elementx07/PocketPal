@@ -18,6 +18,8 @@ dependencies:
   english_words: ^4.0.0
   provider: ^6.1.4
   shared_preferences: ^2.5.3
+  flutter_fortune_wheel: ^1.3.2
+  confetti: ^0.8.0
 
 dev_dependencies:
   flutter_test:
@@ -29,10 +31,16 @@ flutter:
   assets:
     - assets/123.jpg
     - assets/animations/rocketttt.json
+    - assets/animations/rockettttt.json
     - assets/animations/cosmos.riv
     - assets/logo.jpg
+    - assets/coins.jpg
+    - assets/box.jpg
+    - assets/clover.png
+    - assets/streak_freeze.webp
   uses-material-design: true
   fonts:
     - family: Arcade
       fonts:
         - asset: fonts/ARCADECLASSIC.TTF
+    
