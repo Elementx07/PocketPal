@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pocket_pal/widgets/rocket_launch_animation.dart';
 import 'package:pocket_pal/widgets/game_mode_text.dart';
 import 'package:pocket_pal/widgets/pocket_coin_display.dart';
-import 'package:rive/rive.dart';
 
 class GameModeScreen extends StatefulWidget {
   const GameModeScreen({super.key});
