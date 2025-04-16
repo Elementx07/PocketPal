@@ -2,53 +2,45 @@ import 'package:flutter/material.dart';
 
 class HorizontalCards extends StatelessWidget {
   final List<CardData>? cardDataList;
-  final bool isSubscriptionPage;
 
   const HorizontalCards({
     super.key,
     this.cardDataList,
-    this.isSubscriptionPage = false,
   });
 
-  List<CardData> get _defaultSubscriptionCards => [
-        CardData('Active', 10, 0, Colors.green, isCount: true),
-        CardData('Expired', 2, 0, Colors.red, isCount: true),
-        CardData('Upcoming', 5, 0, Colors.orange, isCount: true),
-      ];
-
-  List<CardData> get _defaultDashboardCards => [
+  List<CardData> get _defaultCards => [
+        CardData(
+          'Total Savings',
+          2400.0,
+          3200.0,
+          const Color(0xFFE091E8),
+          subtitle: '3 Months',
+          icon: Icons.trending_up,
+        ),
         CardData(
           'Expenses',
-          800.0,
-          2000.0,
-          const Color.fromARGB(138, 244, 67, 54),
-          showProgress: true,
+          960.0,
+          1200.0,
+          const Color(0xFFFF7F7F),
+          subtitle: 'This Month',
+          icon: Icons.receipt_outlined,
         ),
         CardData(
           'Savings',
-          1200.0,
-          5000.0,
-          const Color.fromARGB(255, 21, 162, 92),
-          showProgress: true,
-        ),
-        CardData(
-          'Income',
-          2000.0,
-          3000.0,
-          const Color.fromARGB(128, 33, 149, 243),
-          showProgress: true,
+          300.0,
+          500.0,
+          const Color(0xFFFFB84D),
+          subtitle: 'This Month',
+          icon: Icons.savings_outlined,
         ),
       ];
 
   @override
   Widget build(BuildContext context) {
-    final cards = cardDataList ??
-        (isSubscriptionPage
-            ? _defaultSubscriptionCards
-            : _defaultDashboardCards);
+    final cards = cardDataList ?? _defaultCards;
 
     return SizedBox(
-      height: isSubscriptionPage ? 120 : 150,
+      height: 190,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
@@ -56,33 +48,21 @@ class HorizontalCards extends StatelessWidget {
         itemBuilder: (context, index) {
           final card = cards[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Card(
-              elevation: 10,
-              
-
-              shadowColor: card.color.withAlpha(100),
+              elevation: 4,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Container(
-                width: 340,
+                width: 220,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      card.color.withAlpha(255),
-                      card.color.withAlpha(150),
-                    ],
-                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  color: card.color,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: card.showProgress
-                      ? _buildProgressCard(card)
-                      : _buildCountCard(card),
+                  child: _buildCard(card),
                 ),
               ),
             ),
@@ -92,84 +72,68 @@ class HorizontalCards extends StatelessWidget {
     );
   }
 
-  Widget _buildProgressCard(CardData card) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _buildCard(CardData card) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              card.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+            Icon(
+              card.icon,
+              color: Colors.white,
+              size: 24,
             ),
-            const SizedBox(height: 8),
-            Text(
-              '₹${card.progress.toStringAsFixed(2)} / ${card.value.toStringAsFixed(2)}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(
+                    value: card.progress / card.value,
+                    backgroundColor: Colors.white.withOpacity(0.3),
+                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                    strokeWidth: 4,
+                  ),
+                ),
+                Text(
+                  '${(card.progress / card.value * 100).round()}%',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        _buildProgressIndicator(card),
-      ],
-    );
-  }
-
-  Widget _buildCountCard(CardData card) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+        const Spacer(),
+        Text(
+          '₹${card.value.round()}',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 4),
         Text(
           card.title,
           style: const TextStyle(
             color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontSize: 16,
           ),
         ),
-        const SizedBox(height: 8),
         Text(
-          card.progress.toInt().toString(),
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+          card.subtitle,
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.7),
+            fontSize: 14,
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildProgressIndicator(CardData card) {
-    return Container(
-      width: 90,
-      height: 80,
-      padding: const EdgeInsets.fromLTRB(15,0,0,0),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: card.color.withAlpha(204),
-            spreadRadius: 2,
-            blurRadius: 10,
-          ),
-        ],
-      ),
-      child: CircularProgressIndicator(
-        value: card.value != 0 ? card.progress / card.value : 0,
-        backgroundColor: const Color.fromARGB(255, 159, 158, 158),
-        valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-        strokeWidth: 8,
-      ),
     );
   }
 }
@@ -179,15 +143,15 @@ class CardData {
   final double progress;
   final double value;
   final Color color;
-  final bool isCount;
-  final bool showProgress;
+  final String subtitle;
+  final IconData icon;
 
   CardData(
     this.title,
     this.progress,
     this.value,
     this.color, {
-    this.isCount = false,
-    this.showProgress = false,
+    this.subtitle = '',
+    this.icon = Icons.circle,
   });
 }

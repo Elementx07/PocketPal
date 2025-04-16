@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:pocket_pal/pages/splash_screen.dart';
 import 'package:pocket_pal/util/streak_provider.dart';
 import 'package:pocket_pal/providers/expense_provider.dart';
+import 'package:pocket_pal/providers/subscription_provider.dart'; // Import SubscriptionProvider
 
 void main() {
   // Ensure bindings are initialized before using plugins or SystemChrome
@@ -16,6 +17,7 @@ void main() {
           ..loadData()
           ..updateStreakWithDate()),
         ChangeNotifierProvider(create: (_) => ExpenseProvider()),
+        ChangeNotifierProvider(create: (_) => SubscriptionProvider()), // Add this provider
       ],
       child: const MyApp(),
     ),
