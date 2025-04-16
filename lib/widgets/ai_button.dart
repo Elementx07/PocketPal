@@ -24,6 +24,7 @@ class AIButton extends StatelessWidget {
         type: MaterialType.transparency,
         child: ChatPopup(
           onClose: () => Navigator.of(dialogContext, rootNavigator: true).pop(),
+          
         ),
       ),
     );
