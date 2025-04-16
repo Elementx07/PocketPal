@@ -11,14 +11,14 @@ class ExpenseBottomSheet extends StatefulWidget {
 }
 
 class _ExpenseBottomSheetState extends State<ExpenseBottomSheet> {
-  String _amount = '0';
+  String _amount = '';
   String _description = '';
   String _selectedCategory = '';
   IconData _selectedIcon = Icons.category;
   Color _selectedColor = Colors.grey;
 
   void _saveExpense() {
-    if (_amount == '0' || _selectedCategory.isEmpty) return;
+    if (_amount == '' || _selectedCategory.isEmpty) return;
 
     final expense = Expense(
       id: DateTime.now().toString(),
@@ -103,9 +103,12 @@ class _ExpenseBottomSheetState extends State<ExpenseBottomSheet> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(Icons.attach_money, color: Colors.white, size: 30),
+          const Text(
+            '₹',
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          ),
           Text(
-            '\$$_amount',
+            _amount,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 40,

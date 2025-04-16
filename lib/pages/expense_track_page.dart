@@ -32,7 +32,7 @@ class ExpenseTrackPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Total: \$${provider.totalExpenses.toStringAsFixed(2)}',
+                      'Total: ₹${provider.totalExpenses.toStringAsFixed(2)}',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
@@ -65,8 +65,8 @@ class ExpenseTrackPage extends StatelessWidget {
                       expense.description,
                       expense.category,
                       expense.category == 'Income' 
-                          ? '-\$${expense.amount.toStringAsFixed(2)}'
-                          : '\$${expense.amount.toStringAsFixed(2)}',
+                          ? '-₹${expense.amount.toStringAsFixed(2)}'
+                          : '₹${expense.amount.toStringAsFixed(2)}',
                       expense.icon,
                       expense.color,
                     );
