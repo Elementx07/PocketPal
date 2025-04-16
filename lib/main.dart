@@ -3,13 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pocket_pal/pages/splash_screen.dart';
-import 'package:pocket_pal/pages/dash.dart';
-import 'package:pocket_pal/pages/sign_in.dart';
-
 import 'package:pocket_pal/util/streak_provider.dart';
 import 'package:pocket_pal/providers/expense_provider.dart';
 
 void main() {
+  // Ensure bindings are initialized before using plugins or SystemChrome
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
@@ -29,9 +28,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(), // Use the SplashScreen as the initial screen
     );
   }
 }
