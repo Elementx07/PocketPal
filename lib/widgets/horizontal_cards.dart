@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'line_graph.dart';
 
 class HorizontalCards extends StatelessWidget {
   final List<CardData>? cardDataList;
@@ -49,20 +50,23 @@ class HorizontalCards extends StatelessWidget {
           final card = cards[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Container(
-                width: 220,
-                decoration: BoxDecoration(
+            child: GestureDetector(
+              onTap: () => _showGraphDialog(context, card),
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
-                  color: card.color,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: _buildCard(card),
+                child: Container(
+                  width: 220,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: card.color,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: _buildCard(card),
+                  ),
                 ),
               ),
             ),
@@ -136,6 +140,68 @@ class HorizontalCards extends StatelessWidget {
       ],
     );
   }
+
+  void _showGraphDialog(BuildContext context, CardData card) {
+    final List<GraphData> sampleData = [
+      GraphData('Jan', 100),
+      GraphData('Feb', 200),
+      GraphData('Mar', 300),
+      GraphData('Apr', 400),
+    ];
+
+    print('Opening dialog with data: ${sampleData.map((d) => '${d.label}: ${d.value}').join(', ')}'); // Debug print
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.all(16),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.6,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 36, 36, 36),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        card.title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close, color: Colors.white),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: LineGraphWidget(
+                      dataPoints: sampleData,
+                      title: '${card.title} Trends',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 class CardData {
@@ -155,3 +221,5 @@ class CardData {
     this.icon = Icons.circle,
   });
 }
+
+// Remove this class and use the one from line_graph.dart
