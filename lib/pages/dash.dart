@@ -95,7 +95,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   child: Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                      const HorizontalCards(isSubscriptionPage: false),
+                      const HorizontalCards(),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                       const PieChartWidget(),
                       const SizedBox(height: 100),
