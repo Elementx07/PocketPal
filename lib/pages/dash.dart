@@ -9,6 +9,7 @@ import 'package:pocket_pal/widgets/bottom_navigation_bar.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/profile_section.dart';
 import 'package:pocket_pal/widgets/pi_chart.dart';
+import 'package:pocket_pal/widgets/ai_button.dart';
 
 import 'package:pocket_pal/util/streak_manager.dart';
 
@@ -57,6 +58,14 @@ class _DashBoardPageState extends State<DashBoardPage> {
             ),
           ),
           screens[_selectedIndex],
+          AIButton(
+            onTap: () {
+              print("Button Pressed!");
+            },
+            imagePath: 'assets/logo.jpg',
+            top: 100.0,
+            right: 16.0,
+          ),
         ],
       ),
       bottomNavigationBar: PocketPalBottomNavigationBar(
