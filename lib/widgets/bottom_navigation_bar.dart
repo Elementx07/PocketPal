@@ -39,7 +39,6 @@ class PocketPalBottomNavigationBar extends StatelessWidget {
       selectedItemColor: Colors.white,
       onTap: (index) {
         onItemTapped(index);
-       
       },
     );
   }

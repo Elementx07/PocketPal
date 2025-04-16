@@ -38,4 +38,45 @@ class SubscriptionPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildSubscriptionItem({
+    required IconData icon,
+    required String category,
+    required double amount,
+    required double progress,
+    required Color color,
+  }) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: [
+              Icon(icon, color: color),
+              const SizedBox(width: 8),
+              Text(
+                category,
+                style: const TextStyle(color: Colors.white70),
+              ),
+              const Spacer(),
+              Text(
+                '₹$amount/month',
+                style: const TextStyle(color: Colors.white70),
+              ),
+            ],
+          ),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: LinearProgressIndicator(
+            value: progress,
+            backgroundColor: Colors.grey[800],
+            valueColor: AlwaysStoppedAnimation<Color>(color),
+            minHeight: 8,
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
 }

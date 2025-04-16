@@ -11,6 +11,7 @@ import 'package:pocket_pal/widgets/profile_section.dart';
 import 'package:pocket_pal/widgets/pi_chart.dart';
 import 'package:pocket_pal/widgets/ai_button.dart';
 
+
 import 'package:pocket_pal/util/streak_manager.dart';
 
 class DashBoardPage extends StatefulWidget {

@@ -64,7 +64,7 @@ class ProfileSection extends StatelessWidget {
               Image.asset('assets/123.jpg', height: 75, width: 70),
               const SizedBox(height: 10),
               Text(
-                "🔥 Streak: $streak",
+                "🔥 Streak: 6",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 22,

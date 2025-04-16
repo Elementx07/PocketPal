@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const arcadePurple = Color(0xFF6F42C1);
+
 TextStyle arcadeFont({
   double fontSize = 16,
   Color color = Colors.black,
