@@ -27,7 +27,6 @@ class _GameModeScreenState extends State<GameModeScreen> {
       showContent = true;
     });
   }
-
   void _goToLeaderboard() {
     Navigator.push(
       context,
