@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_pal/widgets/horizontal_cards.dart';
-import 'package:rive/rive.dart'; 
 import 'package:pocket_pal/widgets/add_subscription_dialog.dart';
 
 class SubscriptionPage extends StatelessWidget {

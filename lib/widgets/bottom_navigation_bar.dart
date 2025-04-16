@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_pal/pages/subscription_page.dart';
-import 'package:pocket_pal/pages/expense_track_page.dart';
 
 class PocketPalBottomNavigationBar extends StatelessWidget {
   const PocketPalBottomNavigationBar({

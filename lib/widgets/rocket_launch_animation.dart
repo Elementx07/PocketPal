@@ -9,8 +9,7 @@ class RocketLaunchAnimation extends StatefulWidget {
   final VoidCallback onAnimationComplete;
 
 
-  const RocketLaunchAnimation({Key? key, required this.onAnimationComplete})
-      : super(key: key);
+  const RocketLaunchAnimation({super.key, required this.onAnimationComplete});
 
   @override
   _RocketLaunchAnimation createState() => _RocketLaunchAnimation();
