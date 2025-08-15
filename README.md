@@ -35,7 +35,7 @@
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/pocket_pal.git
+git clone https://github.com/Elementx07/pocket_pal.git
 ```
 
 2. Install dependencies:
