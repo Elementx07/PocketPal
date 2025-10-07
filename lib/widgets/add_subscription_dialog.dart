@@ -151,7 +151,7 @@ class _AddSubscriptionDialogState extends State<AddSubscriptionDialog> {
                           style: textStyle,
                           dropdownColor: const Color.fromARGB(255, 66, 65, 65),
                           decoration: inputDecoration,
-                          value: _billingCycle,
+                          initialValue: _billingCycle,
                           items: ['Monthly', 'Yearly', 'Quarterly']
                               .map((e) => DropdownMenuItem(
                                     value: e,
@@ -171,7 +171,7 @@ class _AddSubscriptionDialogState extends State<AddSubscriptionDialog> {
                           style: textStyle,
                           dropdownColor: const Color.fromARGB(255, 66, 65, 65),
                           decoration: inputDecoration,
-                          value: _category,
+                          initialValue: _category,
                           items: ['Entertainment', 'Music', 'Streaming', 'Other']
                               .map((e) => DropdownMenuItem(
                                     value: e,
@@ -200,7 +200,7 @@ class _AddSubscriptionDialogState extends State<AddSubscriptionDialog> {
                           style: textStyle,
                           dropdownColor: const Color.fromARGB(255, 66, 65, 65),
                           decoration: inputDecoration,
-                          value: _paymentMethod,
+                          initialValue: _paymentMethod,
                           items: ['Credit Card', 'UPI', 'Bank Transfer']
                               .map((e) => DropdownMenuItem(
                                     value: e,

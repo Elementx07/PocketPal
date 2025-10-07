@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_pal/widgets/horizontal_cards.dart';
 import 'package:pocket_pal/widgets/add_subscription_dialog.dart';
 import 'package:pocket_pal/widgets/subscription_list_view.dart';
 

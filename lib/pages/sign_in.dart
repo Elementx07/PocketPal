@@ -153,7 +153,7 @@ We reserve the right to terminate or suspend access to our application without p
                   _acceptedTerms = value ?? false;
                 });
               },
-              fillColor: MaterialStateProperty.resolveWith(
+              fillColor: WidgetStateProperty.resolveWith(
                 (states) => Colors.deepPurpleAccent,
               ),
             ),
