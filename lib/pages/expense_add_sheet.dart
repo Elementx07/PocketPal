@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:pocket_pal/providers/expense_provider.dart';
 import 'package:pocket_pal/models/expense.dart';
 
 class ExpenseBottomSheet extends StatefulWidget {
-  const ExpenseBottomSheet({super.key});
+  final Function(Expense)? onAddExpense;
+  
+  const ExpenseBottomSheet({
+    super.key,
+    this.onAddExpense,
+  });
 
   @override
   State<ExpenseBottomSheet> createState() => _ExpenseBottomSheetState();
@@ -30,7 +33,19 @@ class _ExpenseBottomSheetState extends State<ExpenseBottomSheet> {
       date: DateTime.now(),
     );
 
-    Provider.of<ExpenseProvider>(context, listen: false).addExpense(expense);
+    // Use callback pattern instead of provider
+    if (widget.onAddExpense != null) {
+      widget.onAddExpense!(expense);
+    }
+    
+    // Show success message
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Expense added successfully'),
+        backgroundColor: Colors.green,
+      ),
+    );
+    
     Navigator.pop(context);
   }
 

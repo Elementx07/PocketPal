@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:pocket_pal/util/streak_provider.dart';
 import 'package:pocket_pal/widgets/pocket_coin_display.dart';
 import 'package:pocket_pal/widgets/notification_item.dart';
 import 'package:pocket_pal/widgets/profile_menu.dart';
@@ -18,8 +16,6 @@ class ProfileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final streak = context.watch<StreakCoinProvider>().streak;
-
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         if (details.delta.dy > 5 && !isProfileVisible) {

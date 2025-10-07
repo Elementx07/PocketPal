@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:pocket_pal/widgets/rocket_launch_animation.dart';
 import 'package:pocket_pal/widgets/pocket_coin_display.dart';
 import 'package:pocket_pal/widgets/challenge_dialog.dart';
 import 'package:pocket_pal/pages/leaderboardscreen.dart';
 import 'package:pocket_pal/widgets/game_mode_text.dart';
-import 'package:pocket_pal/util/streak_provider.dart';
 import 'package:pocket_pal/pages/tiers.dart';
 import 'package:pocket_pal/widgets/achievements_card.dart';
 import 'package:pocket_pal/widgets/savings_goals_card.dart';
@@ -50,8 +48,8 @@ class _GameModeScreenState extends State<GameModeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final streakProvider = Provider.of<StreakCoinProvider>(context);
-    final streak = streakProvider.streak;
+    // Static streak value instead of provider
+    const int streak = 6;
     final levelInfo = _getLevelAndTitle(streak);
 
     return Scaffold(
@@ -236,7 +234,7 @@ class _GameModeScreenState extends State<GameModeScreen> {
   }
 
   Widget _buildChallengesCard(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 155,
       width: double.infinity,
       child: Card(
@@ -287,7 +285,7 @@ class _GameModeScreenState extends State<GameModeScreen> {
   }
 
   Widget _buildleaderboardbody(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 155,
       width: double.infinity,
       child: Card(
@@ -335,7 +333,7 @@ class _GameModeScreenState extends State<GameModeScreen> {
   }
 
   Widget _buildachievements(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 155,
       width: double.infinity,
       child: Card(
@@ -383,7 +381,7 @@ class _GameModeScreenState extends State<GameModeScreen> {
   }
 
   Widget _savingsgoal(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 155,
       width: double.infinity,
       child: Card(

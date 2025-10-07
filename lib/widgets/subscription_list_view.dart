@@ -1,98 +1,129 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/subscription_provider.dart';
 import '../models/subscription.dart';
 import 'subscription_insights.dart';
 
 class SubscriptionListView extends StatelessWidget {
   const SubscriptionListView({super.key});
 
+  // Static subscription data
+  static final List<Subscription> _staticSubscriptions = [
+    Subscription(
+      id: '1',
+      serviceName: 'Netflix',
+      plan: 'Premium 4K',
+      price: 14.99,
+      billingCycle: 'Monthly',
+      category: 'Entertainment',
+      startDate: DateTime.now(),
+      paymentMethod: 'Credit Card',
+      paymentDetails: '4582',
+    ),
+    Subscription(
+      id: '2',
+      serviceName: 'Spotify',
+      plan: 'Family Plan',
+      price: 9.99,
+      billingCycle: 'Monthly',
+      category: 'Music',
+      startDate: DateTime.now(),
+      paymentMethod: 'PayPal',
+      paymentDetails: '7391',
+    ),
+    Subscription(
+      id: '3',
+      serviceName: 'Amazon Prime',
+      plan: 'Annual Subscription',
+      price: 139.99,
+      billingCycle: 'Yearly',
+      category: 'Shopping',
+      startDate: DateTime.now(),
+      paymentMethod: 'Debit Card',
+      paymentDetails: '9248',
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<SubscriptionProvider>(
-      builder: (context, subscriptionProvider, child) {
-        final subscriptions = subscriptionProvider.subscriptions;
+    final subscriptions = _staticSubscriptions;
 
-        return Column(
-          children: [
-            // Tab buttons for Active/Upcoming/Expired
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
+    return Column(
+      children: [
+        // Tab buttons for Active/Upcoming/Expired
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildFilterButton('Active', true),
+              _buildFilterButton('Upcoming', false),
+              _buildFilterButton('Expired', false),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+
+        // Subscription List
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: subscriptions.isEmpty
+                ? const Center(
+                    child: Text(
+                      'No subscriptions yet',
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: subscriptions.length,
+                    itemBuilder: (context, index) {
+                      final subscription = subscriptions[index];
+                      return _buildSubscriptionCard(
+                        context: context,
+                        icon: subscription.serviceName[0],
+                        iconColor: _getIconColor(subscription.category),
+                        serviceName: subscription.serviceName,
+                        amount: '₹${subscription.price}/${_getBillingShortForm(subscription.billingCycle)}',
+                        plan: subscription.plan,
+                        billing: subscription.billingCycle,
+                        nextPayment: _formatDate(subscription.startDate),
+                        paymentMethod: '${subscription.paymentMethod}(${subscription.paymentDetails})',
+                        subscriptionId: subscription.id,
+                      );
+                    },
+                  ),
+          ),
+        ),
+
+        // Insights Button
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: ElevatedButton.icon(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => const SubscriptionInsights(),
+              );
+            },
+            icon: const Icon(Icons.insights, color: Colors.white),
+            label: const Text('View Insights',
+                style: TextStyle(color: Colors.white)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 49, 2, 65),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildFilterButton('Active', true),
-                  _buildFilterButton('Upcoming', false),
-                  _buildFilterButton('Expired', false),
-                ],
-              ),
             ),
-            const SizedBox(height: 20),
-
-            // Subscription List
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.05),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: subscriptions.isEmpty
-                    ? const Center(
-                        child: Text(
-                          'No subscriptions yet',
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount: subscriptions.length,
-                        itemBuilder: (context, index) {
-                          final subscription = subscriptions[index];
-                          return _buildSubscriptionCard(
-                            context: context,
-                            icon: subscription.serviceName[0],
-                            iconColor: _getIconColor(subscription.category),
-                            serviceName: subscription.serviceName,
-                            amount: '₹${subscription.price}/${_getBillingShortForm(subscription.billingCycle)}',
-                            plan: subscription.plan,
-                            billing: subscription.billingCycle,
-                            nextPayment: _formatDate(subscription.startDate),
-                            paymentMethod: '${subscription.paymentMethod}(${subscription.paymentDetails})',
-                            subscriptionId: subscription.id,
-                          );
-                        },
-                      ),
-              ),
-            ),
-
-            // Insights Button
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const SubscriptionInsights(),
-                  );
-                },
-                icon: const Icon(Icons.insights, color: Colors.white),
-                label: const Text('View Insights',
-                    style: TextStyle(color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 49, 2, 65),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
+          ),
+        ),
+      ],
     );
   }
 
@@ -244,9 +275,14 @@ class SubscriptionListView extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                Provider.of<SubscriptionProvider>(context, listen: false)
-                                    .removeSubscription(subscriptionId);
+                                // Static implementation - just close dialog
                                 Navigator.of(context).pop();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Subscription cancelled'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
                               },
                               child: const Text(
                                 'Yes',

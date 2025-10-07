@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:pocket_pal/providers/subscription_provider.dart';
 import 'package:pocket_pal/models/subscription.dart';
 import 'package:uuid/uuid.dart';
+
 class AddSubscriptionDialog extends StatefulWidget {
-  const AddSubscriptionDialog({super.key});
+  final Function(Subscription)? onAddSubscription;
+  
+  const AddSubscriptionDialog({
+    super.key,
+    this.onAddSubscription,
+  });
 
   @override
   State<AddSubscriptionDialog> createState() => _AddSubscriptionDialogState();
@@ -34,8 +38,19 @@ class _AddSubscriptionDialogState extends State<AddSubscriptionDialog> {
         paymentDetails: _paymentDetailsController.text,
       );
 
-      Provider.of<SubscriptionProvider>(context, listen: false)
-          .addSubscription(subscription);
+      // Use callback pattern instead of provider
+      if (widget.onAddSubscription != null) {
+        widget.onAddSubscription!(subscription);
+      }
+      
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Subscription added successfully'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      
       Navigator.of(context).pop();
     }
   }
@@ -151,7 +166,7 @@ class _AddSubscriptionDialogState extends State<AddSubscriptionDialog> {
                           style: textStyle,
                           dropdownColor: const Color.fromARGB(255, 66, 65, 65),
                           decoration: inputDecoration,
-                          initialValue: _billingCycle,
+                          value: _billingCycle,
                           items: ['Monthly', 'Yearly', 'Quarterly']
                               .map((e) => DropdownMenuItem(
                                     value: e,
@@ -171,7 +186,7 @@ class _AddSubscriptionDialogState extends State<AddSubscriptionDialog> {
                           style: textStyle,
                           dropdownColor: const Color.fromARGB(255, 66, 65, 65),
                           decoration: inputDecoration,
-                          initialValue: _category,
+                          value: _category,
                           items: ['Entertainment', 'Music', 'Streaming', 'Other']
                               .map((e) => DropdownMenuItem(
                                     value: e,
@@ -200,7 +215,7 @@ class _AddSubscriptionDialogState extends State<AddSubscriptionDialog> {
                           style: textStyle,
                           dropdownColor: const Color.fromARGB(255, 66, 65, 65),
                           decoration: inputDecoration,
-                          initialValue: _paymentMethod,
+                          value: _paymentMethod,
                           items: ['Credit Card', 'UPI', 'Bank Transfer']
                               .map((e) => DropdownMenuItem(
                                     value: e,
