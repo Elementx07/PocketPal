@@ -10,8 +10,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String _displayText = '';
-  final String _fullText = 'Welcome,   Jay';
+  final String _fullText = 'Welcome,   User';
   int _currentIndex = 0;
+  bool _isAnimationComplete = false;
+  bool _isNavigating = false;
 
   @override
   void initState() {
@@ -27,11 +29,23 @@ class _SplashScreenState extends State<SplashScreen> {
           _currentIndex++;
         });
         _startTypewriterAnimation(); // Recursive call for the next character
+      } else {
+        // Animation is complete
+        setState(() {
+          _isAnimationComplete = true;
+        });
       }
     });
   }
 
   void _navigateToSignIn() {
+    // Only navigate if animation is complete and not already navigating
+    if (!_isAnimationComplete || _isNavigating) return;
+    
+    setState(() {
+      _isNavigating = true;
+    });
+    
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 1000),
@@ -101,6 +115,17 @@ class _SplashScreenState extends State<SplashScreen> {
                         ],
                       ),
                     ),
+                    if (_isAnimationComplete) ...[
+                      const SizedBox(height: 20),
+                      const Text(
+                        'tap   anywhere',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'Arcade',
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),

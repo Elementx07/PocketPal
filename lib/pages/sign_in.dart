@@ -97,7 +97,7 @@ class _SignInScreenState extends State<SignInScreen>
           ],
         ),
         child: const Text(
-          'Sign In',
+          'Sign Up',
           style: TextStyle(
             fontFamily: 'Arcade',
             fontSize: 20,
@@ -184,19 +184,7 @@ class _SignInScreenState extends State<SignInScreen>
                       obscureText: true),
                   const SizedBox(height: 30),
                   _buildButton(),
-                  const SizedBox(height: 20),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontFamily: 'Arcade',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
+                  
                 ],
               ),
             ),
